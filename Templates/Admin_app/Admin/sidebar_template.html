@@ -1,0 +1,138 @@
+{% load static %}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="{% url 'admin_home' %}" class="brand-link">
+    
+      <span class="brand-text font-weight-light">BAUST Career-Hub</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          
+        </div>
+        <div class="info">
+          <center><a href="{% url 'admin_home' %}" class="d-block">Hello, {{user.username}}</a></center>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+
+          <li class="nav-item">
+            {% url 'add_student_from_admin' as add_student_from_admin %}
+            <a href="{% url 'add_student_from_admin' %}" class="nav-link {% if request.path == add_student_from_admin %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Add Student
+              </p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            {% url 'manage_student' as manage_student %}
+            {% url 'edit_student'  as edit_student %}
+            <a href="{% url 'manage_student'   %}" class="nav-link {% if request.path == manage_student %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Student
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            {% url 'add_teacher_from_admin' as add_teacher_from_admin %}
+            <a href="{% url 'add_teacher_from_admin' %}" class="nav-link {% if request.path == add_teacher_from_admin %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Add Teacher
+              </p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            {% url 'manage_teacher' as manage_teacher %}
+            {% url 'edit_teacher'  as edit_teacher %}
+            <a href="{% url 'manage_teacher' %}" class="nav-link {% if request.path == manage_teacher %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Teacher
+              </p>
+            </a>
+          </li> 
+
+          <li class="nav-item">
+            {% url 'add_department' as add_department %}
+            <a href="{% url 'add_department' %}" class="nav-link {% if request.path == add_department %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Add Department
+              </p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            {% url 'manage_department' as manage_department %}
+            {% url 'edit_department'  as edit_department %}
+            <a href="{% url 'manage_department' %}" class="nav-link {% if request.path == manage_department %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Department
+              </p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            {% url 'add_level_term' as add_level_term %}
+            <a href="{% url 'add_level_term' %}" class="nav-link {% if request.path == add_level_term %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Add Level-Term
+              </p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            {% url 'manage_level_term' as manage_level_term %}
+            {% url 'edit_level_term'  as edit_level_term %}
+            <a href="{% url 'manage_level_term' %}" class="nav-link {% if request.path == manage_level_term %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Level-Term
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            {% url 'add_designation' as add_designation %}
+            <a href="{% url 'add_designation' %}" class="nav-link {% if request.path == add_designation %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Add Designation
+              </p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            {% url 'manage_designation' as manage_designation %}
+            {% url 'edit_designation'  as edit_designation %}
+            <a href="{% url 'manage_designation' %}" class="nav-link {% if request.path == manage_designation %} active {% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Designation
+              </p>
+            </a>
+          </li>
+
+
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

@@ -1,0 +1,52 @@
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% include 'Admin_app/base_template.html' %}
+
+{% block content %}
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-header text-black">
+            <h2>Student Signup</h2>
+          </div>
+          <div class="card-body">
+              <form action="{% url 'student_signup_save' %}" method="POST">
+                {% csrf_token %}
+                   {% for field in user_form.visible_fields %}
+                     <div class="form-group">
+                         {{ field.label_tag }}
+                            {% render_field field class="form-control" %}
+                              {% for error in field.errors %}
+                                <span style="color:red">{{ error }}</span>
+                              {% endfor %}
+                   {% endfor %}<br>
+
+
+                   {% for field in student_form.visible_fields %}
+                     <div class="form-group">
+                         {{ field.label_tag }}
+                            {% render_field field class="form-control" %}
+                              {% for error in field.errors %}
+                                <span style="color:red">{{ error }}</span>
+                              {% endfor %}
+                   {% endfor %}<br>
+                       <center><input type="submit" value="Register" class="btn btn-block btn-primary"></center>
+                     </div>
+              </form>
+              <br>
+              <span><center>Already on BAUST Career-Hub as Student? 
+  <a href="{% url 'signin' %}" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+  <span>Sign In </span></center>
+</a>
+</span>
+           </div>
+              </div>   
+          </div>
+        </div>
+      </div>
+  </div>
+</section>
+{% endblock content %}
+  

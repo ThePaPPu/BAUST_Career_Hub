@@ -1,0 +1,148 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BAUST Career-Hub Messages</title>
+    <link rel="stylesheet" href="{% static 'assets/css/bulma.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+<nav class="navbar navbar-inverse" style="width: 100%;
+    height: 50px;
+    background: #e44d3a;">
+  <div class="container-fluid">
+    
+    <ul class="nav navbar-nav" style="position: relative;
+    margin-left: 230%;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    align-items: center;">
+    
+	<li class="active"><a href="javascript:history.back()" style="color: #ffffff;
+    font-size: 14px; ">Home</a></li>			
+      <li><a href="{% url 'inbox' %}" style="color: #ffffff;
+    font-size: 14px;">Message</a></li>
+      <li><a href="{% url 'user_logout' %}" style="color: #ffffff;
+    font-size: 14px;">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+    <div class="columns is-mobile">
+
+
+        <div class="column is-one-quarter">
+            <aside class="menu">
+                
+                <ul style="overflow-y: scroll; height: 500px" class="menu-list">
+    
+                    {% for message in messages %}
+    
+                    <a class="{% if active_direct == message.user.first %}is-active{% endif %}"
+                        href="{% url 'directs' message.user.username %}">
+                        <div class="box">
+                            <article class="media">
+                                <div class="media-left">
+                                    <figure class="image is-64x64">
+                                        {% if message.user.profile.picture %}
+                                        <img src="{{ message.user.profile.picture.url }}" alt="Placeholder image">
+                                        {% else %}
+                                        
+                                        {% endif %}
+                                    </figure>
+                                </div>
+                                <div class="media-content">
+    
+                                    <div class="content">
+                                        <p>
+                                            <strong>{{ message.user.profile.first_name }}
+                                                {{ message.user.profile.last_name }}</strong>
+                                            <small>{{ message.user.first_name }}&nbsp{{ message.user.last_name }}</small>
+                                        </p>
+                                    </div>
+    
+                                    <div class="content">
+                                        {% if message.unread %}
+                                        <p style="font-weight: bold; color: red;">
+                                            <i class="material-icons">mark_chat_unread</i> {{ message.unread }}
+                                        </p>
+                                        {% endif %}
+                                    </div>
+    
+                                </div>
+                            </article>
+                        </div>
+                    </a>
+                    {% endfor %}
+    
+                </ul>
+            </aside>
+            <br>
+            {% comment %} <a href="{% url 'usersearch' %}" class="button is-success">New message</a> {% endcomment %}
+        </div>
+    
+        <div class="column">
+    
+            <div style="overflow-y: scroll; height: 500px">
+    
+                {% for direct in directs %}
+                <div class="box">
+                    <article class="media">
+                        <div class="media-left">
+                        </div>
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <small>{{ direct.sender.first_name }}&nbsp{{ direct.sender.last_name }}</small> on:
+                                    <strong><small>{{ direct.date|date:'N d G:i'}}</small></strong>
+                                </p>
+                                {{ direct.body }}
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                {% endfor %}
+    
+    
+            </div>
+    
+    
+            <form role="form" method="POST" action="{% url 'send_direct' %}">
+                {% csrf_token %}
+                <article class="media">
+                    <figure class="media-left">
+                        
+                    </figure>
+                    <div class="media-content">
+                        <input type="hidden" name="to_user" value="{{ active_direct }}">
+                        <div class="field">
+                            <p class="control">
+                                <textarea class="textarea" name="body" placeholder="Add a comment..."></textarea>
+                            </p>
+                        </div>
+                        <nav class="level">
+                            <div class="level-left">
+                                <div class="level-item">
+                                    <button type="submit" name="action" class="button is-info">Send</buttom>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </article>
+            </form>
+    
+        </div>
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{% static 'assets/js/init.js' %}"></script>
+<script src="{% static 'assets/js/slider.js' %}"></script>
+
+</html>

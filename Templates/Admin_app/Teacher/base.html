@@ -1,0 +1,61 @@
+{% load static %}
+{% load notification_tags %}
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<div class="container">
+				<div class="header-data">
+					<div class="logo">
+						
+					</div><!--logo end-->
+					<nav>
+						<ul>
+							<li>
+								<a href="{% url 'teacher_home' %}">
+									<span><img src="images/icon1.png" alt=""></span>
+									Home
+								</a>
+							</li>
+						
+							
+							<li>
+								<a href="{% url 'teacher_profile' request.user.username %}" >
+									
+									{{request.user }}
+								</a>
+								
+							</li>
+							
+							<li>
+								<a href="{% url 'inbox' %}" title="" class="not-box-open">
+									
+									Messages
+								</a>
+								
+							</li>
+							<li>
+								<a href="#" title="" class="not-box-open">
+									
+									<a href="{% url 'show-notifications-teacher' %}" title="">Notification</a>
+									<span class="badge bg-warning">{{ request.user|notification_count }}</span>
+									<!-- <span class="badge bg-warning">3</span> -->
+								</a>
+								
+								 <li>
+								<a href="{% url 'user_logout' %}">
+									Logout
+								</a>
+							</li>
+							</li>
+						</ul>
+					</nav><!--nav end-->
+					<div class="menu-btn">
+						<a href="#" title=""><i class="fa fa-bars"></i></a>
+					</div><!--menu-btn end-->
+					
+				</div><!--header-data end-->
+			</div>
+
+            </body>
+</html>

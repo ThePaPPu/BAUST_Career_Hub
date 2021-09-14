@@ -1,0 +1,220 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>BAUST Career-Hub {{request.user.username}}'s Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link rel="stylesheet" type="text/css" href="{% static 'student/profile/css/animate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'student/profile/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'student/profile/css/line-awesome.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'student/profile/css/line-awesome-font-awesome.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'student/profile/css/font-awesome.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'student/profile/lib/slick/slick.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'student/profile/lib/slick/slick-theme.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'student/profile/css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'student/profile/css/responsive.css' %}">
+</head>
+
+
+<body>
+	
+
+	<div class="wrapper">
+		
+
+
+		<header style="background-color:darkorchid;">
+			{% include 'Admin_app/Teacher/base.html' %}
+		</header><!--header end-->
+
+
+	
+
+
+		<main>
+			<div class="main-section">
+				<div class="container">
+					<div class="main-section-data">
+						<div class="row">
+							<div class="col-lg-3">
+								<div class="main-left-sidebar">
+								<br><br><br><br>
+									<div class="user_profile">
+										
+										<div class="user_pro_status">
+											<!-- <ul class="flw-hr">
+												<li><a href="#" title="" class="flww"><i class="la la-plus"></i> Follow</a></li>
+												<li><a href="#" title="" class="hre">Hire</a></li>
+											</ul> -->
+											<br><br>
+											<ul class="flw-status">
+												<li>
+													<span>Following</span>
+													<b>{{ user.following_count }}</b>
+												</li>
+												<li>
+													<span>Followers</span>
+													<b>{{ user.follower_count }}</b>
+												</li>
+											</ul>
+										</div><!--user_pro_status end-->
+										<ul class="social_links">
+											<li>Username: {{ request.user.username }}</li>
+											<li>Name: {{ request.user.first_name }} {{ request.user.last_name }}</li>
+											<li>Email: {{ user.email }}</li>
+											<li>Department: {{ user.department }}</li>
+											<li>Phone: {{ user.phone }}</li>
+											<li>Designation: {{ user.teacher.designation }}</li>
+									
+										</ul>
+									</div><!--user_profile end-->
+									
+								</div><!--main-left-sidebar end-->
+							</div>
+							<div class="col-lg-6">
+								<div class="main-ws-sec">
+									<div class="user-tab-sec">
+										<h3>Hello {{ user.first_name}}&nbsp{{user.last_name}}, Welcome to your profile</h3>
+										<div class="star-descp">
+											
+										</div><!--star-descp end-->
+										<div class="tab-feed">
+											<ul>
+												<li data-tab="feed-dd" class="active">
+													<img src="images/ic1.png" alt="">
+													<span>Timeline</span>
+												</li>
+											</ul>
+										</div><!-- tab-feed end-->
+									</div><!--user-tab-sec end-->
+									<div class="product-feed-tab current" id="feed-dd">
+										<div class="posts-section">
+											
+											{% for post in posts %}
+												<div class="post-bar">
+													<div class="post_topbar" style = "width: 105%;">
+														<div class="usy-dt">
+															
+															<div class="usy-name">
+																<h3>{{ post.user.first_name }}&nbsp{{post.user.last_name}}</h3>
+																<span>{{ post.created_at}}</span>
+															</div>
+														</div>
+														
+													</div>
+													<div class="job_descp">
+														<h3>&nbsp&nbsp&nbsp&nbsp{{ post.descriptions }}</h3>
+													</div>
+													
+
+
+													{% comment %} comment section {% endcomment %}
+													<div class="job-status-bar">
+														<div class="comment_box">
+														<form id="commentForm" action="{% url 'comment_create_teacher' post.pk %}" method="POST">
+															{% csrf_token %}
+															<input type="text" name="content" placeholder="Post a comment">
+															<button type="submit" style="background-color:darkorchid;">Comment</button>
+														</form>
+													</div>
+
+													
+
+													<div class="comment-sec">
+													<ul>
+														<br><br>
+														{% for comment in post.comments.all %}
+															<li>
+																<div id="{{ node.id }}" class="comment-list">
+																	
+																	<div class="comment">
+																		<h3>{{ comment.user.first_name }}&nbsp{{comment.user.last_name}}</h3>
+																		
+																		<p>{{ comment.content}}</p>
+																	</div>
+																</div>
+																<!--comment-list end-->
+															</li>
+															{% endfor %}
+															
+													</ul>
+												</div>
+
+													</div>
+												</div><!--post-bar end-->
+											{% empty %}
+												<h1 class="text-center">Empty post</h1>
+											{% endfor %}
+												
+
+											<div class="process-comm">
+												
+											</div><!--process-comm end-->
+										</div><!--posts-section end-->
+									</div><!--product-feed-tab end-->
+									
+									
+								</div><!--main-ws-sec end-->
+							</div>
+							<div class="col-lg-3">
+								<div class="right-sidebar">
+									<div class="suggestions full-width" style="width: 125%;position: absolute; right: -115px;">
+										<div class="sd-title">
+											<h3>Friends</h3>
+										</div><!--sd-title end-->
+										<div class="suggestions-list">
+											
+											{% for f_user in user.follow_follower.all %}
+												<div class="suggestion-usd d-flex align-items-center justify-content-between">
+													
+													<div class="sgt-text">
+														<h4>{{ f_user.followed.first_name }}&nbsp{{f_user.followed.last_name}}</h4>
+														<span>Following</span>
+													</div>
+													<a href="{% url 'newconversation' f_user.user %}" class="btn btn-primary">Message</a>
+												</div>
+											{% endfor %}
+											{% for f_user in user.follow_followed.all %}
+												<div class="suggestion-usd d-flex align-items-center justify-content-between">
+													
+													<div class="sgt-text">
+														<h4>{{ f_user.user.first_name }}&nbsp{{f_user.user.last_name}}</h4>
+														<span>Follower</span>
+													</div>
+													<a href="{% url 'newconversation' f_user.user %}" class="btn btn-primary">message</a>
+												</div>
+											{% endfor %}
+												
+											
+										</div><!--suggestions-list end-->
+									</div><!--suggestions end-->
+								</div><!--right-sidebar end-->
+							</div>
+						</div>
+					</div><!-- main-section-data end-->
+				</div> 
+			</div>
+		</main>
+
+
+{% include "Admin_app/footer.html" %}
+
+
+		
+
+
+
+	</div><!--theme-layout end-->
+
+
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/slick/slick.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>

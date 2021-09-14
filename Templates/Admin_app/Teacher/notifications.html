@@ -1,0 +1,110 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>BAUST Career-Hub Notifications</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <link rel="stylesheet" href="{% static 'student/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'student/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'student/css/line-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'student/css/line-awesome-font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'student/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'student/css/jquery.mCustomScrollbar.min.css' %}">
+    <link rel="stylesheet" href="{% static 'student/lib/slick/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'student/lib/slick/slick-theme.css' %}">
+    <link rel="stylesheet" href="{% static 'student/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'student/css/responsive.css' %}">
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <header>
+
+
+
+
+
+            {% include 'Admin_app/Teacher/base.html' %}
+        </header>
+        <!--header end-->
+
+        <main>
+            <div class="main-section">
+                <div class="container">
+                    <div class="main-section-data">
+                        <div class="row">
+                            <div class="col-xl-6 col-md-6 col-sm-6 m-auto">
+                                <div class="card p-3">
+                                    <h4 class="text-center">Notifications</h4>
+                                </div>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Comment</th>
+                                            <th scope="col">Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for notification in notifications %}
+                                        {% if notification.notification_type == 1 %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ notification.sender.username }}</td>
+                                                <td>{{ notification.text_preview }}</td>
+                                                <td>{{ notification.date|timesince  }} ago</td>
+                                            </tr>
+                                        {% endif %}
+                                        {% if notification.notification_type == 2 %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ notification.sender.username }}</td>
+                                                <td> Followed you</td>
+                                                <td>{{ notification.date|timesince }} ago</td>
+                                            </tr>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div><!-- main-section-data end-->
+                </div>
+            </div>
+        </main>
+
+
+
+
+        {% comment %} <div class="post-popup pst-pj">
+
+        </div>
+        <!--post-project-popup end--> {% endcomment %}
+
+{% include "Admin_app/footer.html" %}
+
+    </div>
+    <!--theme-layout end-->
+
+
+
+    <script src="{% static 'student/js/jquery.min.js' %}"></script>
+    <script src="{% static 'student/js/popper.js' %}"></script>
+    <script src="{% static 'student/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'student/js/jquery.mCustomScrollbar.js' %}"></script>
+    <script src="{% static 'student/lib/slick/slick.min.js' %}"></script>
+    <script src="{% static 'student/js/scrollbar.js' %}"></script>
+    <script src="{% static 'student/js/script.js' %}"></script>
+
+</body>
+
+</html>

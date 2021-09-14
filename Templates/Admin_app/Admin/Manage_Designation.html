@@ -1,0 +1,54 @@
+{% extends 'Admin_app/Admin/base_template.html' %}
+{% block page_title %}
+Manage Designation
+{% endblock page_title %}
+
+
+{% block main_content %}
+<!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+          <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Designation Details</h3>
+              </div>
+
+               
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Designation</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for designation in designation %}
+                    <tr>
+                      <td>{{ designation.id }}</td>
+                      <td>{{ designation.designation_name }}</td>
+
+                      {% comment %} <td><a href="{% url 'designation_update' id=designation.id %}" class="btn btn-warning">Update</a></td> {% endcomment %}
+                      <td><a href="{% url 'designation_delete' id=designation.id %}" class="btn btn-danger">Delete</a></td>
+                      
+
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

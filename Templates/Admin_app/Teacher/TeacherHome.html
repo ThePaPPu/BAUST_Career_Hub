@@ -1,0 +1,274 @@
+{% load static %}
+{% load mptt_tags %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>BAUST Career-Hub Teacher Home</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+
+	<link rel="stylesheet" href="{% static 'student/css/animate.css' %}">
+	<link rel="stylesheet" href="{% static 'student/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'student/css/line-awesome.css' %}">
+	<link rel="stylesheet" href="{% static 'student/css/line-awesome-font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'student/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'student/css/jquery.mCustomScrollbar.min.css' %}">
+	<link rel="stylesheet" href="{% static 'student/lib/slick/slick.css' %}">
+	<link rel="stylesheet" href="{% static 'student/lib/slick/slick-theme.css' %}">
+	<link rel="stylesheet" href="{% static 'student/css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'student/css/responsive.css' %}">
+</head>
+
+<body>
+
+	<div class="wrapper">
+ 
+		<header style="background-color:darkorchid;" >
+			{% include 'Admin_app/Teacher/base.html' %}
+		</header>
+		<!--header end-->
+
+		<main>
+			<div class="main-section">
+				<div class="container">
+					<div class="main-section-data">
+						<div class="row">
+							<div class="col-lg-3 col-md-4 pd-left-none no-pd">
+								<div class="main-left-sidebar no-margin">
+
+									<div class="suggestions full-width">
+										<div class="sd-title">
+											<h3>Suggestions</h3>
+											<i class="la la-ellipsis-v"></i>
+										</div>
+										<!--sd-title end-->
+										<div class="suggestions-list">
+											
+											{% for a_user in all_user %}
+												<div class="suggestion-usd d-flex align-items-center justify-content-between">
+													<div class="sgt-text">
+														<h4>{{ a_user.username }}</h4>
+
+													</div>
+													<a href="{% url 'teacher_profile' a_user.username %}" class="btn btn-primary">Profile</a>
+												</div>
+											{% endfor %}
+												
+											
+										</div>
+										<!--suggestions-list end-->
+									</div>
+									<!--suggestions end-->
+
+								</div>
+								<!--main-left-sidebar end-->
+							</div>
+							<div class="col-lg-6 col-md-8 no-pd">
+								<div class="main-ws-sec">
+									<div class="post-topbar" style = "width: 105%;>
+
+										<div class="post-st">
+											<ul>
+												<li>
+													<div class="post-project">
+														<h3 style="background-color:darkorchid;" >Hi {{ request.user.first_name }}&nbsp{{ request.user.last_name }} share your thoughts here</h3>
+														<div class="post-project-fields">
+															<form action="{% url 'create_post_teacher' %}" method="POST">
+																{% csrf_token %}
+																<div class="row">
+																	<div class="col-lg-12">
+																		<textarea name="descriptions"
+																			placeholder="Description"></textarea>
+																	</div>
+																	<div class="col-lg-12">
+																		<ul>
+																			<li><button class="active" type="submit"
+																					value="post"
+																					style="background-color:green;">Post</button>
+																			</li>
+																		</ul>
+																	</div>
+																</div>
+															</form>
+
+												</li>
+
+											</ul>
+										</div>
+										<!--post-st end-->
+									</div>
+									<!--post-topbar end-->
+
+									{% for post in posts %}
+									<div class="posts-section" style = "width: 105%;">
+										<div class="post-bar">
+											<div class="post_topbar" >
+												<div class="usy-dt">
+													
+													<div class="usy-name">
+														<h3>{{ post.user.first_name }}&nbsp{{post.user.last_name}} </h3>
+																			
+														<span><img src="images/clock.png" alt="">{{ post.created_at}}</span>
+													</div>
+													<br><br><br><br>
+													&nbsp&nbsp&nbsp&nbsp{{ post.descriptions }}
+												</div>
+											</div>
+
+											
+											<div class="job-status-bar">
+												<ul class="like-com">
+
+													<div class="comment-section">
+												<div class="plus-ic">
+													<div class="post-comment">
+													
+													<div class="comment_box">
+														<form id="commentForm" action="{% url 'comment_create_teacher' post.pk %}" method="POST">
+															{% csrf_token %}
+															<input type="text" name="content" placeholder="Post a comment">
+															<button type="submit" style="background-color:darkorchid;" >Comment</button>
+														</form>
+													</div>
+												</div>
+												</div>
+												<div class="comment-sec">
+													<ul>
+														
+														{% for comment in post.comments.all %}
+															<li>
+																<div id="{{ node.id }}" class="comment-list">
+																	
+																	<div class="comment">
+																		<h3>{{ comment.user.first_name }}&nbsp{{comment.user.last_name}}</h3>
+																		
+																		<p>{{ comment.content}}</p>
+																	</div>
+																</div>
+																<!--comment-list end-->
+															</li>
+															{% endfor %}
+															
+													</ul>
+												</div>
+												<!--comment-sec end-->
+												{% comment %} <div class="post-comment">
+													
+													<div class="comment_box">
+														<form id="commentForm" action="{% url 'comment_create' post.pk %}" method="POST">
+															{% csrf_token %}
+															<input type="text" name="content" placeholder="Post a comment">
+															<button type="submit">Send</button>
+														</form>
+													</div>
+												</div> {% endcomment %}
+												<!--post-comment end-->
+											</div>
+											<!--comment-section end-->
+												</ul>
+
+											</div>
+										</div>
+										<!--post-bar end-->
+										<br><br>
+										<div class="posty">
+
+											{% comment %} <div class="comment-section">
+												<div class="plus-ic">
+													<i class="la la-plus"></i>
+												</div>
+												<div class="comment-sec">
+													<ul>
+														
+														{% for comment in post.comments.all %}
+															<li>
+																<div id="{{ node.id }}" class="comment-list">
+																	<div class="bg-img">
+																		<img src="http://via.placeholder.com/40x40" alt="">
+																	</div>
+																	<div class="comment">
+																		<h3>{{ comment.user.username }}</h3>
+																		<span><img src="images/clock.png" alt=""> 3 min
+																			ago</span>
+																		<p>{{ comment.content}}</p>
+																	</div>
+																</div>
+																<!--comment-list end-->
+															</li>
+															{% endfor %}
+															
+													</ul>
+												</div>
+												<!--comment-sec end-->
+												<div class="post-comment">
+													<div class="cm_img">
+														<img src="http://via.placeholder.com/40x40" alt="">
+													</div>
+													<div class="comment_box">
+														<form id="commentForm" action="{% url 'comment_create' post.pk %}" method="POST">
+															{% csrf_token %}
+															<input type="text" name="content" placeholder="Post a comment">
+															<button type="submit">Send</button>
+														</form>
+													</div>
+												</div>
+												<!--post-comment end-->
+											</div>
+											<!--comment-section end--> {% endcomment %}
+										</div>
+										<!--posty end-->
+										<div class="process-comm">
+											
+										</div>
+										<!--process-comm end-->
+									</div>
+									{% endfor %}
+
+									<!--posts-section end-->
+								</div>
+								<!--main-ws-sec end-->
+							</div>
+							{% comment %} <div class="col-lg-3 pd-right-none no-pd">
+								<div class="right-sidebar">
+
+
+								</div>
+								<!--right-sidebar end-->
+							</div> {% endcomment %}
+						</div>
+					</div><!-- main-section-data end-->
+				</div>
+			</div>
+		</main>
+
+
+
+
+		{% comment %} <div class="post-popup pst-pj">
+
+		</div>
+		<!--post-project-popup end--> {% endcomment %}
+
+
+
+
+
+	</div>
+	<!--theme-layout end-->
+
+
+
+	<script src="{% static 'student/js/jquery.min.js' %}"></script>
+	<script src="{% static 'student/js/popper.js' %}"></script>
+	<script src="{% static 'student/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'student/js/jquery.mCustomScrollbar.js' %}"></script>
+	<script src="{% static 'student/lib/slick/slick.min.js' %}"></script>
+	<script src="{% static 'student/js/scrollbar.js' %}"></script>
+	<script src="{% static 'student/js/script.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="{% static 'assets/css/bulma.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <div class="columns is-mobile">
+        <div class="column is-offset-one-fifth">
+    
+    
+            <div class="field has-addons">
+                <form>
+                    <div class="control">
+                        <input class="input is-large" name="q" type="text" placeholder="Search users..."
+                            value="{{ request.GET.q }}">
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-success">Search</button>
+                    </div>
+                </form>
+            </div>
+    
+    
+        </div>
+    </div>
+    
+    <div class="column is-one-quarter">
+    
+        {% for user in users %}
+        <div class="box">
+            <article class="media">
+                <div class="media-left">
+                    <figure class="image is-64x64">
+                        {% if user.profile.picture %}
+                        <img src="{{ user.profile.picture.url }}" alt="Placeholder image">
+                        {% else %}
+                        <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                        {% endif %}
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong>{{ user.profile.first_name }}
+                                {{ user.profile.last_name }}</strong><small>@{{ user.username }}</small>
+                        </p>
+                        <a href="{% url 'newconversation' user.username %}" class="button is-info">Send a message!</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+        {% endfor %}
+    
+    
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{% static 'assets/js/init.js' %}"></script>
+<script src="{% static 'assets/js/slider.js' %}"></script>
+
+</html>

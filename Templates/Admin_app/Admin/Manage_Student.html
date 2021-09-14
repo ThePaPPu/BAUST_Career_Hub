@@ -1,0 +1,73 @@
+{% extends 'Admin_app/Admin/base_template.html' %}
+{% block page_title %}
+Manage Student
+{% endblock page_title %}
+
+
+{% block main_content %}
+<!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+          <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Student Details</h3>
+
+                
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>User Name</th>
+                      {% comment %} <th>Email</th> {% endcomment %}
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      
+                      <th>Department</th>
+                      {% comment %} <th>Student Id</th>
+                      <th>Level-Term</th>
+                      <th>Phone</th> {% endcomment %}
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for st in students %}
+                    <tr>
+                      <td>{{ st.id }}</td>
+                      <td>{{ st.user.username }}</td>
+                      {% comment %} <td>{{ student.user.email }}</td> {% endcomment %}
+                      <td>{{ st.user.first_name }}</td>
+                      <td>{{ st.user.last_name }}</td>
+                     
+                      <td>{{ st.user.department }}</td>
+                      {% comment %} <td>{{ student.student_id }}</td>
+                      <td>{{ student.level_term }}</td>
+                      <td>{{ student.user.phone }}</td> {% endcomment %}
+                      
+
+                      <td><a href="{% url 'student_details' st.id %}" class="btn btn-success">View</a></td>
+                      <td><a href="{% url 'student_update' st.id %}" class="btn btn-warning">Update</a></td>
+                      <td><a href="{% url 'student_delete' st.id %}" class="btn btn-danger">Delete</a></td>
+                      
+
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

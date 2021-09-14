@@ -1,0 +1,63 @@
+<!-- ======= Team Section ======= -->
+{% load static %}
+{% include 'Admin_app/base_template.html' %}
+{% block main_content %}
+<section id="team" class="team">
+
+    <div class="container" data-aos="fade-up">
+
+      <header class="section-header">
+        
+        <p style = "text-decoration: underline; margin-top: 25px;">Our Developer team</p>
+      </header>
+
+      <div class="row gy-4">
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+          <div class="member" style="position: relative; right: -90px; height: 435px; margin-top: 30px;">
+            <div class="member-img">
+              {% comment %} <img src="{% static 'assets/img/team/team-1.jpg' %}" class="img-fluid" alt=""> {% endcomment %}
+              
+            </div>
+            <div class="member-info">
+              <h4>Al Hasan</h4>
+              <span>Supervisor</span>
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+          <div class="member" style="position: relative; right: -166px; height: 435px; margin-top: 30px;">
+            <div class="member-img">
+              {% comment %} <img src="{% static 'assets/img/team/team-3.jpg' %}" class="img-fluid" alt=""> {% endcomment %}
+              
+            </div>
+            <div class="member-info">
+              <h4>Pappu</h4>
+              <span>Developer</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+          <div class="member" style="position: relative; right: -240px; height: 435px; margin-top: 30px;">
+            <div class="member-img">
+              {% comment %} <img src="{% static 'assets/img/team/team-3.jpg' %}" class="img-fluid" alt=""> {% endcomment %}
+              
+            </div>
+            <div class="member-info">
+              <h4>Muquit</h4>
+              <span>Developer</span>
+            </div>
+          </div>
+        </div>
+
+       
+
+      </div>
+
+    </div>
+
+  </section><!-- End Team Section -->
+  {% endblock main_content %}

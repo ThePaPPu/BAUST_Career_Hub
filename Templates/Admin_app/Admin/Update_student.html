@@ -1,0 +1,54 @@
+{% extends 'Admin_app/Admin/base_template.html' %}
+{% load widget_tweaks %}
+{% block page_title %}
+    Update Student
+{% endblock page_title %}
+
+
+
+
+
+{% block main_content %}
+<!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Name : {{student.user.first_name}} {{student.user.last_name}}</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+
+            <form action="{% url 'student_update_save' student.id %}" method="POST">
+                {% csrf_token %}
+                    {% for field in user_form.visible_fields %}
+                           <div class="form-group">
+                               {{ field.label_tag }}
+                                  {% render_field field class="form-control" %}
+                                    {% for error in field.errors %}
+                                      <span style="color:red">{{ error }}</span>
+                                    {% endfor %}
+                         {% endfor %}<br>
+
+
+                         {% for field in student_form.visible_fields %}
+                           <div class="form-group">
+                               {{ field.label_tag }}
+                                  {% render_field field class="form-control" %}
+                                    {% for error in field.errors %}
+                                      <span style="color:red">{{ error }}</span>
+                                    {% endfor %}
+                         {% endfor %}<br>
+                             <input type="submit" value="Update Student" class="btn btn-block btn-primary">
+                           </div>
+                           </form>
+            </div>
+          </div>
+          </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

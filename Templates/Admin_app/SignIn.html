@@ -1,0 +1,109 @@
+{% include 'Admin_app/base_template.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>BAUST Career-Hub | Sign In</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  
+  <link href="{% static 'Login/adminlte.min.css' %}" rel="stylesheet">
+<link href="{% static 'Login/all.min.css' %}" rel="stylesheet">
+<link href="{% static 'Login/icheck-bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'css/adminlte.min.css' %}">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  
+  <!-- /.login-logo -->
+
+  
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Sign in to BAUST Career-Hub</p>
+
+      <form action={% url 'student_signin' %} method="post">
+        {% csrf_token %}
+        
+        <div class="input-group mb-3">
+          <input type="text" class="form-control"  placeholder="Username" name ="username">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <br><br>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Password" name="password1">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <a href=""<span>Forgot password?  </a></span>
+          <!-- /.col -->
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </div>
+
+          <div class="row>"
+          {% if messages %}
+          <div class = "col-12">
+            {% for message in messages %}
+            {% if message.tags == 'error' %}
+            <div class="alert alert-danger" style="margin-top:11px;margin-left: 7px;height: 51px;width: 322px;">
+              {{ message }}
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+      </form>
+      <span>New to BAUST Career-Hub? <a href="{% url 'signup' %}" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+        <span>Signup </span>
+        
+      </a></span>
+
+      <!-- /.social-auth-links -->
+
+      
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
+{% include 'Admin_app/footer.html' %}
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'js/adminlte.min.js' %}"></script>
+<script src="{% static 'Login/adminlte.min.js' %}"></script>
+<script src="{% static 'Login/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'Login/jquery.min.js' %}"></script>
+
+</body>
+
+</html>
+
+
